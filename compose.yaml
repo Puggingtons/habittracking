@@ -1,0 +1,46 @@
+services:
+  db:
+    image: mariadb:latest
+    restart: unless-stopped
+    volumes:
+      - habittracking_db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - habittrackingnetwork
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=1234
+
+  backend:
+    build:
+      context: .
+      target: dev_backend
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./backend:/app/backend
+    depends_on:
+      - db
+    networks:
+      - habittrackingnetwork
+    ports:
+      - 3001:3001
+
+  frontend:
+    build:
+      context: .
+      target: dev_frontend
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app/frontend
+    ports:
+      - 3000:3000
+
+volumes:
+  habittracking_db:
+
+networks:
+  habittrackingnetwork:
