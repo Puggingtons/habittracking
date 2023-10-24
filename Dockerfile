@@ -4,6 +4,7 @@ FROM node:lts as dev_backend
 WORKDIR /app/backend
 COPY backend/package.json backend/yarn.lock backend/tsconfig.build.json backend/tsconfig.json backend/nest-cli.json backend/.eslintrc.js ./
 RUN yarn
+RUN yarn global add @nestjs/cli
 
 # copy code of backend
 COPY backend/src ./
@@ -18,6 +19,7 @@ FROM node:lts as dev_frontend
 WORKDIR /app/frontend
 COPY frontend/package.json frontend/yarn.lock frontend/tsconfig.json ./
 RUN yarn
+RUN yarn global add react-scripts
 
 # copy code of frontend
 COPY frontend/public frontend/src  ./

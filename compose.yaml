@@ -7,11 +7,7 @@ services:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - habittrackingnetwork
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=database
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=1234
+    env_file: ./backend/.env
 
   backend:
     build:
@@ -20,7 +16,8 @@ services:
       dockerfile: ./Dockerfile
     restart: unless-stopped
     volumes:
-      - ./backend:/app/backend
+      - ./backend/prisma:/app/backend/prisma
+      - ./backend/src:/app/backend/src
     depends_on:
       - db
     networks:
@@ -35,7 +32,8 @@ services:
       dockerfile: ./Dockerfile
     restart: unless-stopped
     volumes:
-      - ./frontend:/app/frontend
+      - ./frontend/src:/app/frontend/src
+      - ./frontend/public:/app/frontend/public
     ports:
       - 3000:3000
 
