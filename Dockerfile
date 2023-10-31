@@ -2,12 +2,15 @@ FROM node:lts as dev_backend
 
 # copy configs of backend and install dependencies
 WORKDIR /app/backend
-COPY backend/package.json backend/yarn.lock backend/tsconfig.build.json backend/tsconfig.json backend/nest-cli.json backend/.eslintrc.js ./
+COPY backend/package.json backend/yarn.lock backend/tsconfig.build.json backend/tsconfig.json backend/nest-cli.json backend/.eslintrc.js backend/.env ./
 RUN yarn
 RUN yarn global add @nestjs/cli
 
+COPY backend/prisma ./prisma
+RUN npx prisma generate
+
 # copy code of backend
-COPY backend/src ./
+COPY backend/src ./src
 
 CMD [ "yarn", "start:dev" ]
 
