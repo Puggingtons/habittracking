@@ -30,4 +30,8 @@ export default class Api {
   public static login(username: string, password: string) {
     return Api.getInstance().post("auth/login", { username, password });
   }
+
+  public static register(username: string, password: string) {
+    return Api.getInstance().post("auth/register", { username, password });
+  }
 }
