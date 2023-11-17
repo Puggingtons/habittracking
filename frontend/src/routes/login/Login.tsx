@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 
 import Api from "../../api/Api";
 import { ColumnFlexBox } from "../../components/FlexBox";
+import "../login/Login.css"
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -27,7 +28,9 @@ export default function Login() {
   };
 
   return (
-    <Paper>
+    <div className="LoginWindow">
+    <Paper elevation={7} square={false}>
+      <h2 className="header">Habittracking Login</h2>
       <ColumnFlexBox>
         <TextField
           onChange={onUsernameChange}
@@ -45,5 +48,6 @@ export default function Login() {
         </Button>
       </ColumnFlexBox>
     </Paper>
+    </div>
   );
 }
