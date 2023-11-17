@@ -29,23 +29,32 @@ export default function Login() {
 
   return (
     <div className="LoginWindow">
-    <Paper elevation={7} square={false}>
+    <Paper elevation={7} square={false} className="paper">
       <h2 className="header">Habittracking Login</h2>
       <ColumnFlexBox>
-        <TextField
+        <TextField style={{margin: "10px"}}
           onChange={onUsernameChange}
           label="Username"
         ></TextField>
-        <TextField
+        <TextField style={{margin: "10px"}}
           onChange={onPasswordChange}
           label="Password"
         ></TextField>
-        <Button
+        <Button 
+          style={{margin: "10px"}}
           variant="contained"
           onClick={onLoginButtonPressed}
         >
           Login
         </Button>
+        <Button
+          style={{margin: "10px"}}
+          variant="contained"
+          onClick={() => {
+            window.location.href = "/register";
+          }}>
+          Register
+          </Button>
       </ColumnFlexBox>
     </Paper>
     </div>
