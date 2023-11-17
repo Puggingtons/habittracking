@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 
 import Api from "../../api/Api";
 import { ColumnFlexBox } from "../../components/FlexBox";
+import "../registration/Registration.css"
 
 export default function Registration() {
   const [username, setUsername] = useState<string>("");
@@ -27,23 +28,34 @@ export default function Registration() {
   };
 
   return (
-    <Paper>
+    <div className="RegisterWindow">
+    <Paper elevation={7} square={false} className="paper">
+    <h2 className="header">Habittracking Registration</h2>
       <ColumnFlexBox>
-        <TextField
+        <TextField style={{margin: "10px"}}
           onChange={onUsernameChange}
           label="Username"
         ></TextField>
-        <TextField
+        <TextField style={{margin: "10px"}}
           onChange={onPasswordChange}
           label="Password"
         ></TextField>
-        <Button
+        <Button style={{margin: "10px"}}
           variant="contained"
           onClick={onRegistrationButtonPressed}
         >
           Register
         </Button>
+        <Button
+          style={{margin: "10px"}}
+          variant="contained"
+          onClick={() => {
+            window.location.href = "/login";
+          }}>
+          Login
+          </Button>
       </ColumnFlexBox>
     </Paper>
+    </div>
   );
 }
