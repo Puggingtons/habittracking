@@ -24,6 +24,7 @@ services:
       - habittrackingnetwork
     ports:
       - 3001:3001
+      - 5555:5555
     env_file: ./backend/.env
 
   frontend:
