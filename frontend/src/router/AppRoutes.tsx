@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import App from "../App";
 import HabitOverview from "../routes/habitOverview/HabitOverview";
 import Login from "../routes/login/Login";
+import MainPage from "../routes/mainPage/MainPage";
 import Registration from "../routes/registration/Registration";
 
 export default function AppRoutes() {
@@ -21,9 +22,14 @@ export default function AppRoutes() {
         element={<Registration />}
       />
       <Route
-        path="habits"
-        element={<HabitOverview />}
-      />
+        path="/"
+        element={<MainPage />}
+      >
+        <Route
+          path="habits"
+          element={<HabitOverview />}
+        />
+      </Route>
     </Routes>
   );
 }
