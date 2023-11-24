@@ -4,8 +4,6 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    margin: 10px;
-    background-color: black;
 }
 
 .header {
@@ -14,10 +12,4 @@
     text-align: center;
 }
 
-.paper {
-    width: 350px;
-    height: auto;
-    align-items: center;
-    margin: auto;
-}
 

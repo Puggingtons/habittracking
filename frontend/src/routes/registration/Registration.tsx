@@ -1,35 +1,17 @@
 import { Button, Paper, TextField, createTheme } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { ThemeOptions } from '@mui/material/styles';
+import { dark } from "../../Theme";
 import { ThemeProvider } from '@mui/material/styles';
-import * as React from 'react';
 
 import Api from "../../api/Api";
 import { ColumnFlexBox } from "../../components/FlexBox";
 import "../registration/Registration.css"
 
-
-  //Theme builder: https://zenoo.github.io/mui-theme-creator/
-  export const themeOptions: ThemeOptions = {
-    palette: {
-      mode: 'dark',
-      primary: {
-        main: '#ec3b66',
-      },
-      secondary: {
-        main: '#8483f1',
-      },
-    },
-  };
-
-const ColorMode = React.createContext({toggleColorMode: () => {}});
-
 export default function Registration() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const theme = createTheme(themeOptions);
-  const colorMode = React.useContext(ColorMode);
+  const theme = createTheme(dark);
 
   const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -51,7 +33,6 @@ export default function Registration() {
 
   return (
     <ThemeProvider theme={theme}>
-    <div className="RegisterWindow">
     <Paper elevation={7} square={false} className="paper">
     <h2 className="header">Habittracking Registration</h2>
       <ColumnFlexBox>
@@ -64,14 +45,13 @@ export default function Registration() {
           onChange={onPasswordChange}
           label="Password"
         ></TextField>
-        <Button style={{margin: "10px"}}
+        <Button
           variant="contained"
           onClick={onRegistrationButtonPressed}
         >
           Register
         </Button>
         <Button
-          style={{margin: "10px"}}
           variant="contained"
           onClick={() => {
             window.location.href = "/login";
@@ -80,7 +60,6 @@ export default function Registration() {
           </Button>
       </ColumnFlexBox>
     </Paper>
-    </div>
     </ThemeProvider>
   );
 }
