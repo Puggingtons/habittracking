@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "@emotion/react";
-import { createTheme } from '@mui/material';
+import { CssBaseline, createTheme } from '@mui/material';
 import { dark } from "./Theme";
 import reportWebVitals from "./reportWebVitals";
 
@@ -18,6 +18,7 @@ const theme = createTheme(dark);
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
