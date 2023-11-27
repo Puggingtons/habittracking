@@ -33,6 +33,7 @@ export const dark: ThemeOptions = {
             borderRadius: "20px",
             alignSelf: "center",
             backgroundColor: "#181818",
+            backgroundImage: "none",
           },
         },
       },
