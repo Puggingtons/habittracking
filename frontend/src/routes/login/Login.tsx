@@ -1,8 +1,11 @@
 import "../login/Login.css";
 
-import { Button, Paper, TextField, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Button,
+  Paper,
+  TextField,
+} from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { dark } from "../../Theme";
 
 import Api from "../../api/Api";
 import { ColumnFlexBox } from "../../components/FlexBox";
@@ -10,8 +13,6 @@ import { ColumnFlexBox } from "../../components/FlexBox";
 export default function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
-  const theme = createTheme(dark);
 
   const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -26,7 +27,6 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
     <div className="LoginWindow">
       <Paper
         elevation={7}
@@ -64,6 +64,5 @@ export default function Login() {
         </ColumnFlexBox>
       </Paper>
     </div>
-    </ThemeProvider>
   );
 }

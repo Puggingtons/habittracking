@@ -1,17 +1,14 @@
-import { Button, Paper, TextField, createTheme } from "@mui/material";
+import "../registration/Registration.css";
+
+import { Button, Paper, TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { dark } from "../../Theme";
-import { ThemeProvider } from '@mui/material/styles';
 
 import Api from "../../api/Api";
 import { ColumnFlexBox } from "../../components/FlexBox";
-import "../registration/Registration.css"
 
 export default function Registration() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
-  const theme = createTheme(dark);
 
   const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -32,16 +29,21 @@ export default function Registration() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-    <Paper elevation={7} square={false} className="paper">
-    <h2 className="header">Habittracking Registration</h2>
+    <Paper
+      elevation={7}
+      square={false}
+      className="paper"
+    >
+      <h2 className="header">Habittracking Registration</h2>
       <ColumnFlexBox>
-        <TextField style={{margin: "10px"}}
+        <TextField
+          style={{ margin: "10px" }}
           onChange={onUsernameChange}
           label="Username"
-          sx={{color: "white"}}
+          sx={{ color: "white" }}
         ></TextField>
-        <TextField style={{margin: "10px"}}
+        <TextField
+          style={{ margin: "10px" }}
           onChange={onPasswordChange}
           label="Password"
         ></TextField>
@@ -55,11 +57,11 @@ export default function Registration() {
           variant="contained"
           onClick={() => {
             window.location.href = "/login";
-          }}>
+          }}
+        >
           Login
-          </Button>
+        </Button>
       </ColumnFlexBox>
     </Paper>
-    </ThemeProvider>
   );
 }
