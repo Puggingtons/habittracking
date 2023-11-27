@@ -29,6 +29,7 @@ export default function Registration() {
   };
 
   return (
+    <div className="RegisterWindow">
     <Paper
       elevation={7}
       square={false}
@@ -63,5 +64,6 @@ export default function Registration() {
         </Button>
       </ColumnFlexBox>
     </Paper>
+    </div>
   );
 }
