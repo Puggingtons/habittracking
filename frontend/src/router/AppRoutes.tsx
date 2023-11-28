@@ -22,7 +22,7 @@ export default function AppRoutes() {
         element={<Registration />}
       />
       <Route
-        path="/"
+        path="mainPage"
         element={<MainPage />}
       >
         <Route
