@@ -1,3 +1,5 @@
+import AccessTokenHandler from "./AccessTokenHandler";
+
 export default class Api {
   public static instance: Api;
 
@@ -13,20 +15,8 @@ export default class Api {
     return this.instance;
   }
 
-  private static writeAccessToken(access_token: string): void {
-    localStorage.setItem("access_token", access_token);
-  }
-
-  private static getAccessToken(): string | null {
-    return localStorage.getItem("access_token");
-  }
-
-  private static removeAccessToken() {
-    localStorage.removeItem("access_token");
-  }
-
   private static authHeader(): { Authorization: string } | undefined {
-    const access_token = this.getAccessToken();
+    const access_token = AccessTokenHandler.getAccessToken();
 
     if (access_token) {
       console.log(access_token);
@@ -58,7 +48,9 @@ export default class Api {
         if (res.status >= 200 && res.status < 300) {
           console.log("successfully logged in");
 
-          this.writeAccessToken((await res.json()).access_token);
+          AccessTokenHandler.writeAccessToken((await res.json()).access_token);
+        } else {
+          throw new Error("login not successfull");
         }
       });
   }
@@ -70,13 +62,15 @@ export default class Api {
         // on successfull registration, directly login the user
         if (res.status >= 200 && res.status < 300) {
           return await this.login(username, password);
+        } else {
+          throw new Error("registration not successfull");
         }
       });
   }
 
   public static logout() {
     // TODO make api call to auth/logout
-    this.removeAccessToken();
+    AccessTokenHandler.removeAccessToken();
   }
 
   public static async getHabits() {

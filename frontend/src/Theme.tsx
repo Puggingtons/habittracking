@@ -32,6 +32,7 @@ export const dark: ThemeOptions = {
             margin: "auto",
             borderRadius: "20px",
             alignSelf: "center",
+            backgroundImage: "none"
           },
         },
       },

@@ -5,10 +5,13 @@ import { ChangeEvent, useState } from "react";
 
 import Api from "../../api/Api";
 import { ColumnFlexBox } from "../../components/FlexBox";
+import { useNavigate } from "react-router";
 
 export default function Registration() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -46,6 +49,7 @@ export default function Registration() {
           style={{ margin: "10px" }}
           onChange={onPasswordChange}
           label="Password"
+          type="password"
         ></TextField>
         <Button
           variant="contained"
@@ -56,7 +60,7 @@ export default function Registration() {
         <Button
           variant="contained"
           onClick={() => {
-            window.location.href = "/login";
+            navigate("/login");
           }}
         >
           Login

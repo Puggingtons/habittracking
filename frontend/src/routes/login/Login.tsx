@@ -1,18 +1,18 @@
 import "../login/Login.css";
 
-import {
-  Button,
-  Paper,
-  TextField,
-} from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { Button, Paper, TextField } from "@mui/material";
+import { ChangeEvent, useEffect, useState } from "react";
 
+import AccessTokenHandler from "../../api/AccessTokenHandler";
 import Api from "../../api/Api";
 import { ColumnFlexBox } from "../../components/FlexBox";
+import { useNavigate } from "react-router";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -23,13 +23,27 @@ export default function Login() {
   };
 
   const onLoginButtonPressed = () => {
-    Api.login(username, password);
+    Api.login(username, password)
+      .then((res) => {
+        navigate("/habits");
+      })
+      .catch((res) => {
+        // TODO show error in frontend
+        console.log("dings fehler und so dies das.");
+      });
   };
+
+  useEffect(() => {
+    // when user is logged in, directly redirect to homepage
+    if (AccessTokenHandler.isLoggedIn()) {
+      navigate("/habits");
+    }
+  }, [navigate]);
 
   return (
     <div className="LoginWindow">
       <Paper
-        elevation={7}
+        elevation={20}
         square={false}
         className="paper"
       >
@@ -44,6 +58,7 @@ export default function Login() {
             style={{ margin: "10px" }}
             onChange={onPasswordChange}
             label="Password"
+            type="password"
           ></TextField>
           <Button
             style={{ margin: "10px" }}
@@ -56,7 +71,7 @@ export default function Login() {
             style={{ margin: "10px" }}
             variant="contained"
             onClick={() => {
-              window.location.href = "/register";
+              navigate("/register");
             }}
           >
             Register
