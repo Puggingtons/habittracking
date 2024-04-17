@@ -1,0 +1,26 @@
+/*define main page container style properties*/
+.mainPageContainer {
+    padding: 1.5%;
+}
+
+/*define right maun container style properties*/
+.leftSideContainer {
+    width: 69%;
+    height: fit-content;
+    padding: .25%;
+}
+
+/*define left side container style properties*/
+.rightSideContainer {
+    width: 30%;
+    height: fit-content;
+    padding: .25%;
+}
+
+/*define divider line style properties*/
+#dividerLine{
+    background-color: gray;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-top: 2%;
+}

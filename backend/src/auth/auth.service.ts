@@ -23,14 +23,16 @@ export class AuthService {
     const user = await this.usersService.findOne(username);
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('User does not exist');
     }
 
-    if (await this.checkPassword(password, user?.password)) {
-      throw new UnauthorizedException();
+    const correctPassword = await this.checkPassword(password, user?.password);
+
+    if (!correctPassword) {
+      throw new UnauthorizedException('Wrong password');
     }
 
-    const payload = { sub: user.id, username: user.username };
+    const payload = { id: user.id, username: user.username };
 
     return {
       access_token: await this.jwtService.signAsync(payload),
@@ -44,7 +46,7 @@ export class AuthService {
         await this.hashPassword(password),
       );
 
-      return { sub: user.id, username: user.username };
+      return { id: user.id, username: user.username };
     } catch (e) {
       throw new ForbiddenException(e);
     }
