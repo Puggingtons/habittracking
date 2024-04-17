@@ -55,6 +55,15 @@ export default class Api {
       });
   }
 
+  public static async checkLogin(): Promise<boolean> {
+    return await Api.getInstance()
+      .get("auth/profile")
+      .then((res) => {
+        if (res.status !== 200) return false;
+        return true;
+      });
+  }
+
   public static async register(username: string, password: string) {
     return await Api.getInstance()
       .post("auth/register", { username, password })

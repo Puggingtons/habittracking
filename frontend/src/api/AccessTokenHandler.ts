@@ -1,3 +1,5 @@
+import Api from "./Api";
+
 export default class AccessTokenHandler {
   private static readonly ACCESS_TOKEN = "access_token";
 
@@ -15,7 +17,7 @@ export default class AccessTokenHandler {
     localStorage.removeItem(this.ACCESS_TOKEN);
   }
 
-  public static isLoggedIn() {
-    return this.getAccessToken() != null;
+  public static async isLoggedIn() {
+    return this.getAccessToken() != null && await Api.checkLogin();
   }
 }
