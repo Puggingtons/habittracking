@@ -1,13 +1,17 @@
+import "../registration/Registration.css";
+
 import { Button, Paper, TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 
 import Api from "../../api/Api";
 import { ColumnFlexBox } from "../../components/FlexBox";
-import "../registration/Registration.css"
+import { useNavigate } from "react-router";
 
 export default function Registration() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -29,31 +33,39 @@ export default function Registration() {
 
   return (
     <div className="RegisterWindow">
-    <Paper elevation={7} square={false} className="paper">
-    <h2 className="header">Habittracking Registration</h2>
+    <Paper
+      elevation={7}
+      square={false}
+      className="paper"
+    >
+      <h2 className="header">Habittracking Registration</h2>
       <ColumnFlexBox>
-        <TextField style={{margin: "10px"}}
+        <TextField
+          style={{ margin: "10px" }}
           onChange={onUsernameChange}
           label="Username"
+          sx={{ color: "white" }}
         ></TextField>
-        <TextField style={{margin: "10px"}}
+        <TextField
+          style={{ margin: "10px" }}
           onChange={onPasswordChange}
           label="Password"
+          type="password"
         ></TextField>
-        <Button style={{margin: "10px"}}
+        <Button
           variant="contained"
           onClick={onRegistrationButtonPressed}
         >
           Register
         </Button>
         <Button
-          style={{margin: "10px"}}
           variant="contained"
           onClick={() => {
-            window.location.href = "/login";
-          }}>
+            navigate("/login");
+          }}
+        >
           Login
-          </Button>
+        </Button>
       </ColumnFlexBox>
     </Paper>
     </div>
