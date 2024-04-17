@@ -1,14 +1,14 @@
 import "./index.css";
 
-import { CssBaseline, createTheme } from '@mui/material';
+import { CssBaseline, createTheme } from "@mui/material";
 
-import AppRoutes from "./router/AppRoutes";
-import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { dark } from "./Theme";
 import reportWebVitals from "./reportWebVitals";
+import { router } from "./router/AppRoutes";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -20,9 +20,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>
 );

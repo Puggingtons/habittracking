@@ -2,7 +2,7 @@ import { Button, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import Api from "../../api/Api";
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 
 type Habit = {
   id: number;
@@ -33,15 +33,11 @@ export default function HabitOverview() {
   const logout = () => {
     Api.logout();
     navigate("/login");
-  }
+  };
 
   return (
     <>
-      <Button
-        onClick={logout}
-      >
-        Logout
-      </Button>
+      <Button onClick={logout}>Logout</Button>
       {habits ? (
         habits.map((habit) => {
           return (
@@ -63,10 +59,7 @@ export function SingleHabit(props: { name: string; interval: number }) {
   const { name, interval } = props;
 
   return (
-    <Paper
-      elevation={5}
-      sx={{ margin: "1rem" }}
-    >
+    <Paper elevation={5} sx={{ margin: "1rem" }}>
       <Typography variant="h3">Name: {name}</Typography>
       <Typography variant="h5">Interval: {interval}</Typography>
     </Paper>

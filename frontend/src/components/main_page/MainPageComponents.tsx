@@ -1,14 +1,14 @@
-//import css rules
-import { Button, IconButton, ListItem, Stack } from '@mui/material';
 import './MainPageComponents.css';
 
-//import images
-import GridViewIcon from '@mui/icons-material/GridView';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import AddIcon from '@mui/icons-material/Add';
+//import css rules
+import { Button, IconButton, ListItem, Stack } from '@mui/material';
 
+import AddIcon from '@mui/icons-material/Add';
 //import created components
 import FlexBox from '../FlexBox';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+//import images
+import GridViewIcon from '@mui/icons-material/GridView';
 
 //define habits navigation bar container
 export function HabitDataNavigationBarContainer() {
