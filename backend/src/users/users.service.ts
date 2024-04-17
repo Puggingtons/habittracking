@@ -14,7 +14,7 @@ export class UsersService {
     const user = await this.findOne(username);
 
     if (user) {
-      throw 'User with this name already exists';
+      throw new Error('User with this name already exists');
     }
 
     return await this.prisma.user.create({

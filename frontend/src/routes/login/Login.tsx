@@ -34,19 +34,20 @@ export default function Login() {
   };
 
   useEffect(() => {
+    const checkLogin = async () => {
+      if (await AccessTokenHandler.isLoggedIn()) {
+        console.log("logged in!")
+        navigate("/habits");
+      }
+    };
+
+    checkLogin();
     // when user is logged in, directly redirect to homepage
-    if (AccessTokenHandler.isLoggedIn()) {
-      navigate("/habits");
-    }
   }, [navigate]);
 
   return (
     <div className="LoginWindow">
-      <Paper
-        elevation={20}
-        square={false}
-        className="paper"
-      >
+      <Paper elevation={20} square={false} className="paper">
         <h2 className="header">Habittracking Login</h2>
         <ColumnFlexBox>
           <TextField
