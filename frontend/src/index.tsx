@@ -1,20 +1,27 @@
 import "./index.css";
 
-import AppRoutes from "./router/AppRoutes";
-import { BrowserRouter } from "react-router-dom";
+import { CssBaseline, createTheme } from "@mui/material";
+
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+import { dark } from "./Theme";
 import reportWebVitals from "./reportWebVitals";
+import { router } from "./router/AppRoutes";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
+const theme = createTheme(dark);
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
