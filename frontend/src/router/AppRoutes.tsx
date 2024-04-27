@@ -13,7 +13,9 @@ import MainPage from "../routes/mainPage/MainPage";
 import Registration from "../routes/registration/Registration";
 
 const checkLogin = async () => {
-  const loggedIn = await AccessTokenHandler.isLoggedIn();
+  // const loggedIn = await AccessTokenHandler.isLoggedIn();
+  const loggedIn = true;
+  
   if (!loggedIn) {
     return redirect("/login");
   }
