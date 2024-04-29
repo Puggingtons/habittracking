@@ -50,7 +50,8 @@ export default class Api {
 
           AccessTokenHandler.writeAccessToken((await res.json()).access_token);
         } else {
-          throw new Error("login not successfull");
+          console.log(`Error on login: ${(await res.json()).message}`);
+          throw new Error("login not successful");
         }
       });
   }
@@ -72,7 +73,8 @@ export default class Api {
         if (res.status >= 200 && res.status < 300) {
           return await this.login(username, password);
         } else {
-          throw new Error("registration not successfull");
+          console.log(`Error on registration: ${(await res.json()).message}`);
+          throw new Error("registration not successful");
         }
       });
   }
