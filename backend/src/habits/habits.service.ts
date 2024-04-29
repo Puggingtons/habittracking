@@ -7,17 +7,18 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class HabitsService {
   constructor(private prismaService: PrismaService) {}
 
-  async getDebugHabits() {
+  async getDebugHabits(userId = 1) {
     // TODO remove test data and use prisma instead
     return [
-      { id: 0, name: 'TestHabit', interval: 1, userId: 1 },
-      { id: 1, name: 'TestWeeklyHabit', interval: 7, userId: 1 },
-      { id: 2, name: 'TestHabitDings', interval: 69, userId: 1 },
+      { id: 0, name: 'TestHabit', interval: 1, userId },
+      { id: 1, name: 'TestWeeklyHabit', interval: 7, userId },
+      { id: 2, name: 'TestHabitDings', interval: 69, userId },
     ];
   }
 
   async getHabitsOfUser(userId: number): Promise<Habit[]> {
-    return this.prismaService.habit.findMany({ where: { userId: userId } });
+    return this.getDebugHabits(userId);
+    // return this.prismaService.habit.findMany({ where: { userId: userId } });
   }
 
   async createHabitOfUser(habitDto: CreateHabitDto, userId: number) {

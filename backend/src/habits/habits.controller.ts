@@ -15,10 +15,9 @@ export class HabitsController {
   constructor(private habitsService: HabitsService) {}
 
   @Get()
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   getHabits(@Request() req) {
-    // return this.habitsService.getHabitsOfUser(req.user.id);
-    return this.habitsService.getDebugHabits();
+    return this.habitsService.getHabitsOfUser(req.user.id);
   }
 
   @Post()
