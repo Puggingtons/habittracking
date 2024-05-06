@@ -1,0 +1,8 @@
+/*define css rule for grid view component*/
+.grid-view-component-style {
+    display: grid;
+    height: auto;
+    width: auto;
+    row-gap: 2%;
+    grid-template-columns: auto auto;
+}
