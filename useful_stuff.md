@@ -2,7 +2,7 @@
 
 ## Building / Starten
 - ```docker compose up``` zum starten des front- & backends
-- ```docker compose up --build``` zum neu builden
+- ```docker compose up --build``` zum neu builden des front- & backends
 
 ## Pfade
 
