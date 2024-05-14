@@ -9,7 +9,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { HabitsService } from './habits.service';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { CreateHabitDto } from './habit.create.dto';
 import { CreateHabitEntryDto } from './habitEntry.create.dto';
 
