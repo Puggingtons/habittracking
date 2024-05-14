@@ -1,9 +1,9 @@
+import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
+import { PrismaClient, User } from '@prisma/client';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
-import { PrismaClient } from '@prisma/client';
-import { UsersService } from './users.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { UsersService } from './users.service';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -14,14 +14,27 @@ describe('UsersService', () => {
       providers: [UsersService, PrismaService],
     })
       .overrideProvider(PrismaService)
-      .useValue(mockDeep<PrismaClient>)
+      .useValue(mockDeep<PrismaClient>())
       .compile();
 
     service = module.get<UsersService>(UsersService);
-    prisma = module.get(PrismaService);
+    prisma = module.get<DeepMockProxy<PrismaClient>>(PrismaService);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('returns user with username', () => {
+    const username = 'testusername';
+    const testUser: User = {
+      id: 0,
+      password: 'asdasd',
+      username: username,
+    };
+
+    prisma.user.findFirst.mockResolvedValue(testUser);
+
+    expect(service.findOne(username)).resolves.toBe(testUser);
   });
 });
