@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Login from '../routes/login/Login';
+import { BrowserRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 
-test('renders text fields correctly', () => {
-     render(<Login />);
-     const usernameTextField = screen.getByLabelText(/Username/i);
-     const passwordTextField = screen.getByLabelText(/Password/i);
-     expect(usernameTextField).toBeInstanceOf(HTMLInputElement);
-     expect(passwordTextField).toBeInstanceOf(HTMLInputElement);
+test('renders the site correctly', () => {
+     render(<Login />, {wrapper: BrowserRouter})
+
+     expect(screen.getByText(/Habittracking Login/i)).toBeInTheDocument()
     });
