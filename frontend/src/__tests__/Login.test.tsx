@@ -9,6 +9,8 @@ test('Renders the site correctly', () => {
      render(<Login />, {wrapper: BrowserRouter})
 
      expect(screen.getByText(/Habittracking Login/i)).toBeInTheDocument()
+     expect(screen.getByLabelText(/Username/i)).toBeInTheDocument()
+     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument()
 });
 
 test('Navigates to register', async () => {
