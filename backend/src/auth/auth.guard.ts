@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
-import { Observable } from 'rxjs';
 import { Request } from 'express';
 import { jwtConstants } from './constants';
 
@@ -19,7 +18,7 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('no login token provided!');
     }
 
     try {
@@ -30,7 +29,7 @@ export class AuthGuard implements CanActivate {
       // assign the payload to request object so we can access it in route handlers
       request['user'] = payload;
     } catch {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('provided token is not valid!');
     }
 
     return true;

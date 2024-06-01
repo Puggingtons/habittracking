@@ -48,7 +48,7 @@ export class AuthService {
 
       return { id: user.id, username: user.username };
     } catch (e) {
-      throw new ForbiddenException(e);
+      throw new ForbiddenException((e as Error).message);
     }
   }
 
