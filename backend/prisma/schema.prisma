@@ -23,7 +23,7 @@ model Habit {
   name     String
   interval Float // In days. Time until the next habit entry should be done
 
-  User   User @relation(fields: [userId], references: [id])
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 
   entries HabitEntry[]
@@ -33,6 +33,6 @@ model HabitEntry {
   id        Int      @id @default(autoincrement())
   timestamp DateTime
 
-  Habit   Habit? @relation(fields: [habitId], references: [id])
+  Habit   Habit? @relation(fields: [habitId], references: [id], onDelete: Cascade)
   habitId Int?
 }
