@@ -14,6 +14,7 @@ import Registration from "../routes/registration/Registration";
 
 const checkLogin = async () => {
   const loggedIn = await AccessTokenHandler.isLoggedIn();
+  
   if (!loggedIn) {
     return redirect("/login");
   }
