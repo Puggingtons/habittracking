@@ -40,10 +40,20 @@ jobs:
     - name: run test
       run: yarn test
 
-  build:
-    name: build docker image
+  build_and_deploy:
+    name: build & deploy docker image
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag habittracking:$(date +%s)
+      run: docker build . --file Dockerfile --tag habittracking:latest
+    - name: save image to tar
+      run: docker save habittracking:latest -o habittracking_latest.tar
+    - name: scp to remote
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: pbdr.de
+        username: cicd
+        password: ${{ secrets.CICD_PASSWORD }}
+        source: habittracking_latest.tar
+        target: ~/habittracking
