@@ -11,6 +11,9 @@ jobs:
   test_backend:
     name: run yarn test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -18,10 +21,8 @@ jobs:
         node-version: '20'
         cache: 'yarn'
     - name: install dependencies
-      working-directory: backend
       run: yarn
     - name: run test
-      working-directory: backend
       run: yarn test
 
   build:
