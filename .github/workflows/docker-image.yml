@@ -55,5 +55,5 @@ jobs:
         host: pbdr.de
         username: cicd
         password: ${{ secrets.CICD_PASSWORD }}
-        source: habittracking_latest.tar
+        source: ./compose.yaml
         target: ~/habittracking
