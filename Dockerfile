@@ -1,4 +1,4 @@
-FROM node:lts as dev_backend
+FROM node:lts AS dev_backend
 
 # copy configs of backend and install dependencies
 WORKDIR /app/backend
@@ -16,7 +16,7 @@ CMD [ "yarn", "start:dev" ]
 
 # ---------------------------------------------------------------------- #
 
-FROM node:lts as dev_frontend
+FROM node:lts AS dev_frontend
 
 # copy configs of frontend and install dependencies
 WORKDIR /app/frontend
