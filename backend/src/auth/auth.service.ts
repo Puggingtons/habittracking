@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
@@ -48,7 +48,7 @@ export class AuthService {
 
       return { id: user.id, username: user.username };
     } catch (e) {
-      throw new ForbiddenException(e);
+      throw new ForbiddenException((e as Error).message);
     }
   }
 
