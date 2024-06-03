@@ -3,7 +3,7 @@ name: Docker Image CI
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "21-github-cicd" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
