@@ -44,7 +44,7 @@ const NewHabitModal: React.FC<NewHabitModalProps> = (
 
       Api.postHabit({
         name: newHabitName,
-        interval: Number.parseInt(newHabitInterval),
+        interval: Number.parseFloat(newHabitInterval),
         description: newHabitDescription,
       }).then(() => {
         //close new habit modal
@@ -60,7 +60,7 @@ const NewHabitModal: React.FC<NewHabitModalProps> = (
     return (
       newHabitName !== "" &&
       newHabitInterval !== "" &&
-      !isNaN(Number.parseInt(newHabitInterval))
+      !isNaN(Number.parseFloat(newHabitInterval))
     );
   };
 
