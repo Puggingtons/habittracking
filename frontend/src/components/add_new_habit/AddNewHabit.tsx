@@ -46,10 +46,10 @@ const NewHabitModal: React.FC<NewHabitModalProps> = (
         name: newHabitName,
         interval: Number.parseInt(newHabitInterval),
         description: newHabitDescription,
+      }).then(() => {
+        //close new habit modal
+        props.setHabitModalVisibilty(false);
       });
-
-      //close hnew habit modal
-      props.setHabitModalVisibilty(false);
     } else {
       //set state to fill fields true
       setFillFieldsState(true);
