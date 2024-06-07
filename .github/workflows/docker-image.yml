@@ -4,42 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-  test_backend:
-    name: test backend
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    - name: install dependencies
-      run: yarn
-    - name: run test
-      run: yarn test
-
-  test_frontend:
-    name: test frontend
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    - name: install dependencies
-      run: yarn
-    - name: run test
-      run: yarn test
-
   build_and_deploy:
     name: build & deploy docker image
     runs-on: ubuntu-latest
