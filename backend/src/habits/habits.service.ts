@@ -12,9 +12,21 @@ export class HabitsService {
   async getDebugHabits(userId = 1) {
     // TODO remove test data and use prisma instead
     return [
-      { id: 0, name: 'TestHabit', interval: 1, userId },
-      { id: 1, name: 'TestWeeklyHabit', interval: 7, userId },
-      { id: 2, name: 'TestHabitDings', interval: 69, userId },
+      { id: 0, name: 'TestHabit', interval: 1, description: 'dings', userId },
+      {
+        id: 1,
+        name: 'TestWeeklyHabit',
+        interval: 7,
+        description: 'bums',
+        userId,
+      },
+      {
+        id: 2,
+        name: 'TestHabitDings',
+        interval: 69,
+        description: 'foo',
+        userId,
+      },
     ];
   }
 
@@ -26,8 +38,7 @@ export class HabitsService {
   async createHabitOfUser(habitDto: CreateHabitDto, userId: number) {
     this.prismaService.habit.create({
       data: {
-        interval: habitDto.interval,
-        name: habitDto.name,
+        ...habitDto,
         User: { connect: { id: userId } },
       },
     });
@@ -66,7 +77,7 @@ export class HabitsService {
 
     return this.prismaService.habit.update({
       where: { id: habitId },
-      data: { name: updateHabitDto.name, interval: updateHabitDto.interval },
+      data: updateHabitDto,
     });
   }
 

@@ -19,9 +19,10 @@ model User {
 }
 
 model Habit {
-  id       Int    @id @default(autoincrement())
-  name     String
-  interval Float // In days. Time until the next habit entry should be done
+  id          Int    @id @default(autoincrement())
+  name        String
+  interval    Float // In days. Time until the next habit entry should be done
+  description String
 
   User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int

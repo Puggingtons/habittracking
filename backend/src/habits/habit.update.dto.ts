@@ -6,7 +6,10 @@ export class UpdateHabitDto {
   name?: string;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsNumber()
   interval?: number;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
 }

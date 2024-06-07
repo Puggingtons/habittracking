@@ -107,13 +107,17 @@ export default class Api {
     return await this.getInstance().delete(`habits/${id}`);
   }
 
-  public static async postHabit(habit: { name: string; interval: number }) {
+  public static async postHabit(habit: {
+    name: string;
+    interval: number;
+    description: string;
+  }) {
     return await this.getInstance().post("habits", habit);
   }
 
   public static async putHabit(
     id: number,
-    habit: { name?: string; interval?: number }
+    habit: { name?: string; interval?: number; description?: string }
   ) {
     return await this.getInstance().put(`habits/${id}`, habit);
   }

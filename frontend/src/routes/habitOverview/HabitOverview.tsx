@@ -1,18 +1,18 @@
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
-
 import Api from "../../api/Api";
-import { useNavigate } from "react-router";
-import GridView from "../../components/grid_view/GridView";
+import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import FlexBox from "../../components/FlexBox";
+import GridView from "../../components/grid_view/GridView";
+import { useNavigate } from "react-router";
 
 type Habit = {
   id: number;
   name: string;
   interval: number;
   userId: number;
+  description: string;
 };
 
 export default function HabitOverview() {
@@ -29,7 +29,7 @@ export default function HabitOverview() {
   useEffect(() => {
     if (habits) {
       habits.forEach((habit) => {
-        console.log(habit); 
+        console.log(habit);
       });
     }
   }, [habits]);
@@ -40,11 +40,11 @@ export default function HabitOverview() {
   };
 
   //define state gook to set view
-  const [habitViewStyle, setHabitViewStyle] = useState<string>('grid');
+  const [habitViewStyle, setHabitViewStyle] = useState<string>("grid");
   //map for habit views
   const habitViewStyleContainerOptions = new Map([
-    ["grid", <GridViewHabitOverview passedHabitObjects={habits}/>],
-    ["list", <ListHabitOverview passedHabitObjects={habits}/>]
+    ["grid", <GridViewHabitOverview passedHabitObjects={habits} />],
+    ["list", <ListHabitOverview passedHabitObjects={habits} />],
   ]);
 
   return (
@@ -60,52 +60,65 @@ export default function HabitOverview() {
 
 //interface for view component props
 interface ViewComponentProps {
-  passedHabitObjects?: Habit[]
+  passedHabitObjects?: Habit[];
 }
 
-export const GridViewHabitOverview: React.FC<ViewComponentProps> = (props: ViewComponentProps) => {
+export const GridViewHabitOverview: React.FC<ViewComponentProps> = (
+  props: ViewComponentProps
+) => {
   return (
     <GridView>
-        {props.passedHabitObjects ? (
-          props.passedHabitObjects.map((currentHabit) => {
-            return (
-              <SingleHabit
-                key={currentHabit.id}
-                name={currentHabit.name}
-                description="default_habit_description_text"
-                interval={currentHabit.interval}
-              />
-            );
-          })
-        ) : (
-          <>nope</>
-        )}
+      {props.passedHabitObjects ? (
+        props.passedHabitObjects.map((currentHabit) => {
+          return (
+            <SingleHabit
+              key={currentHabit.id}
+              name={currentHabit.name}
+              description={currentHabit.description}
+              interval={currentHabit.interval}
+            />
+          );
+        })
+      ) : (
+        <>nope</>
+      )}
     </GridView>
-  )
-}
+  );
+};
 
 //interface for habit component props
 interface HabitComponentProps {
-  name: string,
-  description?: string,
-  interval: number
+  name: string;
+  description?: string;
+  interval: number;
 }
 
-export const SingleHabit: React.FC<HabitComponentProps> = (props: HabitComponentProps) => {
+export const SingleHabit: React.FC<HabitComponentProps> = (
+  props: HabitComponentProps
+) => {
   return (
-    <Paper elevation={5} sx={{ margin: ".5rem", padding: '4%', width: '95%' }}>
-      <FlexBox style={{userSelect: 'none'}}>
-        <FeaturedPlayListIcon/>
-        <h2 style={{marginTop: '0%', marginLeft: '4%'}}>{props.name}</h2>
+    <Paper elevation={5} sx={{ margin: ".5rem", padding: "4%", width: "95%" }}>
+      <FlexBox style={{ userSelect: "none" }}>
+        <FeaturedPlayListIcon />
+        <h2 style={{ marginTop: "0%", marginLeft: "4%" }}>{props.name}</h2>
       </FlexBox>
-      <span style={{color: 'gray'}}>{props.description}</span><br/><br/>
-      <span style={{fontSize: '18px'}}>Habit Interval: <span style={{color: '#509CF5', fontWeight: 'bold'}}>{props.interval}</span></span>
+      <span style={{ color: "gray" }}>{props.description}</span>
+      <br />
+      <br />
+      <span style={{ fontSize: "18px" }}>
+        Habit Interval:{" "}
+        <span style={{ color: "#509CF5", fontWeight: "bold" }}>
+          {props.interval}
+        </span>
+      </span>
     </Paper>
   );
-}
+};
 
 //create and export list habit overview
-export const ListHabitOverview : React.FC<ViewComponentProps> = (props: ViewComponentProps) => {
+export const ListHabitOverview: React.FC<ViewComponentProps> = (
+  props: ViewComponentProps
+) => {
   return (
     <table>
       <th>
@@ -114,32 +127,34 @@ export const ListHabitOverview : React.FC<ViewComponentProps> = (props: ViewComp
         <tr>Habit Description</tr>
         <tr>Habit Interval</tr>
       </th>
-      {
-        props.passedHabitObjects ? (
-          props.passedHabitObjects.map((currentHabitItem) => (
-            <ListHabitComponent key={currentHabitItem.id} 
-              name={currentHabitItem.name} 
-              description="default_habit_description_text"
-              interval={currentHabitItem.interval}/>
-          ))
-        ) : (
-          <>No Data found</>
-        )
-      }
+      {props.passedHabitObjects ? (
+        props.passedHabitObjects.map((currentHabitItem) => (
+          <ListHabitComponent
+            key={currentHabitItem.id}
+            name={currentHabitItem.name}
+            description="default_habit_description_text"
+            interval={currentHabitItem.interval}
+          />
+        ))
+      ) : (
+        <>No Data found</>
+      )}
     </table>
   );
-}
+};
 
-//create and define list habit component 
-export const ListHabitComponent: React.FC<HabitComponentProps> = (props: HabitComponentProps) => {
+//create and define list habit component
+export const ListHabitComponent: React.FC<HabitComponentProps> = (
+  props: HabitComponentProps
+) => {
   return (
     <td>
       <tr>
-        <FeaturedPlayListIcon/>
+        <FeaturedPlayListIcon />
       </tr>
       <tr>{props.name}</tr>
       <tr>{props.description}</tr>
       <tr>{props.interval}</tr>
     </td>
-  )
-}
+  );
+};

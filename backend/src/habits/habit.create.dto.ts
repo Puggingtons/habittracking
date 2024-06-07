@@ -8,4 +8,8 @@ export class CreateHabitDto {
   @IsNotEmpty()
   @IsNumber()
   interval: number;
+
+  @IsNotEmpty()
+  @IsString()
+  description: string;
 }
