@@ -3,6 +3,7 @@ import { CreateHabitEntryDto } from './habitEntry.create.dto';
 import { Habit } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { UpdateHabitDto } from './habit.update.dto';
 
 @Injectable()
 export class HabitsService {
@@ -32,17 +33,18 @@ export class HabitsService {
     });
   }
 
+  async deleteHabitOfUser(habitId: number, userId: number) {
+    await this.ensureUserHasHabit(userId, habitId);
+
+    this.prismaService.habit.delete({ where: { id: habitId } });
+  }
+
   async addHabitEntryOfUser(
     createHabitEntryDto: CreateHabitEntryDto,
     habitId: number,
     userId: number,
   ) {
-    const userHasHabit = await this.checkUserHasHabit(userId, habitId);
-    if (!userHasHabit) {
-      throw new Error(
-        `Habit with id: ${habitId} does not belong to user with id: ${userId}!`,
-      );
-    }
+    await this.ensureUserHasHabit(userId, habitId);
 
     // use the specified date if it exists
     // if not, use current Date
@@ -53,6 +55,28 @@ export class HabitsService {
     return this.prismaService.habitEntry.create({
       data: { timestamp: timestamp, Habit: { connect: { id: habitId } } },
     });
+  }
+
+  async updateHabitOfUser(
+    updateHabitDto: UpdateHabitDto,
+    habitId: number,
+    userId: number,
+  ) {
+    await this.ensureUserHasHabit(userId, habitId);
+
+    return this.prismaService.habit.update({
+      where: { id: habitId },
+      data: { name: updateHabitDto.name, interval: updateHabitDto.interval },
+    });
+  }
+
+  private async ensureUserHasHabit(userId: number, habitId: number) {
+    const userHasHabit = await this.checkUserHasHabit(userId, habitId);
+    if (!userHasHabit) {
+      throw new Error(
+        `Habit with id: ${habitId} does not belong to user with id: ${userId}!`,
+      );
+    }
   }
 
   private async checkUserHasHabit(

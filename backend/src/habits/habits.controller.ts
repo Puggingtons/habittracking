@@ -7,11 +7,14 @@ import {
   Post,
   Param,
   BadRequestException,
+  Delete,
+  Put,
 } from '@nestjs/common';
 import { HabitsService } from './habits.service';
 import { AuthGuard } from '../auth/auth.guard';
 import { CreateHabitDto } from './habit.create.dto';
 import { CreateHabitEntryDto } from './habitEntry.create.dto';
+import { UpdateHabitDto } from './habit.update.dto';
 
 @Controller('habits')
 export class HabitsController {
@@ -29,23 +32,51 @@ export class HabitsController {
     return this.habitsService.createHabitOfUser(createHabitDto, req.user.id);
   }
 
+  @Put('/:id')
+  @UseGuards(AuthGuard)
+  putHabit(
+    @Param('id') id: string,
+    @Body() updateHabitDto: UpdateHabitDto,
+    @Request() req,
+  ) {
+    const parsedId = this.parseId(id);
+    return this.habitsService.updateHabitOfUser(
+      updateHabitDto,
+      parsedId,
+      req.user.id,
+    );
+  }
+
+  @Delete('/:id')
+  @UseGuards(AuthGuard)
+  deleteHabit(@Param('id') id: string, @Request() req) {
+    const parsedId = this.parseId(id);
+
+    return this.habitsService.deleteHabitOfUser(parsedId, req.user.id);
+  }
+
   @Post('/:id/entry')
   @UseGuards(AuthGuard)
   postHabitEntry(
-    @Param() params: { id: string },
+    @Param('id') id: string,
     @Body() createHabitEntryDto: CreateHabitEntryDto,
     @Request() req,
   ) {
-    const id = Number.parseInt(params.id);
-
-    if (Number.isNaN(id)) {
-      throw new BadRequestException('id has to be a number!');
-    }
+    const parsedId = this.parseId(id);
 
     return this.habitsService.addHabitEntryOfUser(
       createHabitEntryDto,
-      id,
+      parsedId,
       req.user.id,
     );
+  }
+
+  private parseId(id: string): number {
+    const parsedId = Number.parseInt(id);
+
+    if (Number.isNaN(parsedId)) {
+      throw new BadRequestException('id has to be a number!');
+    }
+    return parsedId;
   }
 }
