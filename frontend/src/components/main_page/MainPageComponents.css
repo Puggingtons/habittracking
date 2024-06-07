@@ -6,3 +6,19 @@
     background-color: #181818;
     padding: .25%;
 }
+
+/*define habit navigation bar button style properties*/
+.navigation-bar-button-style-properties {
+    cursor: pointer;
+    user-select: none;
+    border-radius: 40px;
+    background-color: transparent;
+}   
+
+/*define menu button focus style*/
+.navigation-bar-button-focus-style {
+    background-color: #121212;
+    font-weight: bold;
+    font-size: 18px;
+}
+
