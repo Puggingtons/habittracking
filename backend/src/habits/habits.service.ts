@@ -31,12 +31,12 @@ export class HabitsService {
   }
 
   async getHabitsOfUser(userId: number): Promise<Habit[]> {
-    return this.getDebugHabits(userId);
-    // return this.prismaService.habit.findMany({ where: { userId: userId } });
+    // return this.getDebugHabits(userId);
+    return this.prismaService.habit.findMany({ where: { userId: userId } });
   }
 
   async createHabitOfUser(habitDto: CreateHabitDto, userId: number) {
-    this.prismaService.habit.create({
+    return this.prismaService.habit.create({
       data: {
         ...habitDto,
         User: { connect: { id: userId } },
@@ -47,7 +47,7 @@ export class HabitsService {
   async deleteHabitOfUser(habitId: number, userId: number) {
     await this.ensureUserHasHabit(userId, habitId);
 
-    this.prismaService.habit.delete({ where: { id: habitId } });
+    return this.prismaService.habit.delete({ where: { id: habitId } });
   }
 
   async addHabitEntryOfUser(
