@@ -1,6 +1,6 @@
 import Api from "../api/Api";
 import { Edit } from "@mui/icons-material";
-import EditHabitModal from "./add_new_habit/EditHabitDialog";
+import EditHabitModal from "./dialogs/EditHabitDialog";
 import { Habit } from "../api/types/Habit";
 import { IconButton } from "@mui/material";
 import { useState } from "react";

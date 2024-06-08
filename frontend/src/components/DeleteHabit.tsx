@@ -1,6 +1,6 @@
 import Api from "../api/Api";
 import { Delete } from "@mui/icons-material";
-import DeleteHabitDialog from "./add_new_habit/DeleteHabitDialog";
+import DeleteHabitDialog from "./dialogs/DeleteHabitDialog";
 import { Habit } from "../api/types/Habit";
 import { IconButton } from "@mui/material";
 import { useState } from "react";
