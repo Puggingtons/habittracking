@@ -1,6 +1,7 @@
 import { Button, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
+import AddHabitEntryButton from "../../components/AddHabitEntryButton";
 import Api from "../../api/Api";
 import DeleteHabit from "../../components/DeleteHabit";
 import EditHabit from "../../components/EditHabit";
@@ -94,6 +95,7 @@ export const SingleHabit: React.FC<HabitComponentProps> = (
         <div>
           <DeleteHabit habit={props.habit} />
           <EditHabit habit={props.habit} />
+          <AddHabitEntryButton habit={props.habit} />
         </div>
       </FlexBox>
       <span style={{ color: "gray" }}>{props.habit.description}</span>

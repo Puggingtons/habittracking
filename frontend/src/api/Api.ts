@@ -121,4 +121,10 @@ export default class Api {
   ) {
     return await this.getInstance().put(`habits/${id}`, habit);
   }
+
+  public static async postHabitEntry(habitId: number, timestamp?: Date) {
+    return await this.getInstance().post(`habits/${habitId}/entry`, {
+      timestamp,
+    });
+  }
 }
