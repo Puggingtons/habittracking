@@ -2,18 +2,13 @@ import { Button, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import Api from "../../api/Api";
+import DeleteHabit from "../../components/DeleteHabit";
+import EditHabit from "../../components/EditHabit";
 import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import FlexBox from "../../components/FlexBox";
 import GridView from "../../components/grid_view/GridView";
+import { Habit } from "../../api/types/Habit";
 import { useNavigate } from "react-router";
-
-type Habit = {
-  id: number;
-  name: string;
-  interval: number;
-  userId: number;
-  description: string;
-};
 
 export default function HabitOverview() {
   const [habits, setHabits] = useState<Habit[]>();
@@ -70,14 +65,7 @@ export const GridViewHabitOverview: React.FC<ViewComponentProps> = (
     <GridView>
       {props.passedHabitObjects ? (
         props.passedHabitObjects.map((currentHabit) => {
-          return (
-            <SingleHabit
-              key={currentHabit.id}
-              name={currentHabit.name}
-              description={currentHabit.description}
-              interval={currentHabit.interval}
-            />
-          );
+          return <SingleHabit key={currentHabit.id} habit={currentHabit} />;
         })
       ) : (
         <>nope</>
@@ -88,9 +76,7 @@ export const GridViewHabitOverview: React.FC<ViewComponentProps> = (
 
 //interface for habit component props
 interface HabitComponentProps {
-  name: string;
-  description?: string;
-  interval: number;
+  habit: Habit;
 }
 
 export const SingleHabit: React.FC<HabitComponentProps> = (
@@ -98,17 +84,25 @@ export const SingleHabit: React.FC<HabitComponentProps> = (
 ) => {
   return (
     <Paper elevation={5} sx={{ margin: ".5rem", padding: "4%", width: "95%" }}>
-      <FlexBox style={{ userSelect: "none" }}>
-        <FeaturedPlayListIcon />
-        <h2 style={{ marginTop: "0%", marginLeft: "4%" }}>{props.name}</h2>
+      <FlexBox style={{ userSelect: "none", justifyContent: "space-between" }}>
+        <FlexBox>
+          <FeaturedPlayListIcon />
+          <h2 style={{ marginTop: "0%", marginLeft: "4%" }}>
+            {props.habit.name}
+          </h2>
+        </FlexBox>
+        <div>
+          <DeleteHabit habit={props.habit} />
+          <EditHabit habit={props.habit} />
+        </div>
       </FlexBox>
-      <span style={{ color: "gray" }}>{props.description}</span>
+      <span style={{ color: "gray" }}>{props.habit.description}</span>
       <br />
       <br />
       <span style={{ fontSize: "18px" }}>
         Habit Interval:{" "}
         <span style={{ color: "#509CF5", fontWeight: "bold" }}>
-          {props.interval}
+          {props.habit.interval}
         </span>
       </span>
     </Paper>
@@ -131,9 +125,7 @@ export const ListHabitOverview: React.FC<ViewComponentProps> = (
         props.passedHabitObjects.map((currentHabitItem) => (
           <ListHabitComponent
             key={currentHabitItem.id}
-            name={currentHabitItem.name}
-            description="default_habit_description_text"
-            interval={currentHabitItem.interval}
+            habit={currentHabitItem}
           />
         ))
       ) : (
@@ -152,9 +144,9 @@ export const ListHabitComponent: React.FC<HabitComponentProps> = (
       <tr>
         <FeaturedPlayListIcon />
       </tr>
-      <tr>{props.name}</tr>
-      <tr>{props.description}</tr>
-      <tr>{props.interval}</tr>
+      <tr>{props.habit.name}</tr>
+      <tr>{props.habit.description}</tr>
+      <tr>{props.habit.interval}</tr>
     </td>
   );
 };
