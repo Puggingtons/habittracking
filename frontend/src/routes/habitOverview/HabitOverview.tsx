@@ -14,8 +14,6 @@ import { useNavigate } from "react-router";
 export default function HabitOverview() {
   const [habits, setHabits] = useState<Habit[]>();
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     Api.getHabits().then(async (res) => {
       setHabits(await res.json());
@@ -30,11 +28,6 @@ export default function HabitOverview() {
     }
   }, [habits]);
 
-  const logout = () => {
-    Api.logout();
-    navigate("/login");
-  };
-
   //define state gook to set view
   const [habitViewStyle, setHabitViewStyle] = useState<string>("grid");
   //map for habit views
@@ -45,7 +38,6 @@ export default function HabitOverview() {
 
   return (
     <>
-      <Button onClick={logout}>Logout</Button>
       {
         //set matching grid view style
         habitViewStyleContainerOptions.get(habitViewStyle)
