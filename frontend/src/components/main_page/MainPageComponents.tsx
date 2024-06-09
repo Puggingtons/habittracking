@@ -2,15 +2,17 @@ import "./MainPageComponents.css";
 
 //import css rules
 import { Button, IconButton, ListItem, Stack } from "@mui/material";
+import { useEffect, useState } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
+import Api from "../../api/Api";
 //import created components
 import FlexBox from "../FlexBox";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 //import images
 import GridViewIcon from "@mui/icons-material/GridView";
+import { Habit } from "../../api/types/Habit";
 import NewHabitModal from "../add_new_habit/AddNewHabit";
-import { useState } from "react";
 
 //define habits navigation bar container
 export function HabitDataNavigationBarContainer() {
@@ -136,12 +138,21 @@ export function CurrentHabitInformationBar() {
 
 //define next habits container
 export function NextHabitsContainer() {
+  const [dueHabits, setDueHabits] = useState<Habit[]>([]);
+
+  useEffect(() => {
+    Api.getDueHabits().then(async (res) => {
+      setDueHabits(await res.json());
+    });
+  });
   return (
     <div id="nextHabitsContainer" className="nextHabitsContainerStyle">
       <h3>Anstehende Habits:</h3>
-      <Stack spacing={2} sx={{}}>
-        <ListItem>list_item_1</ListItem>
-        <ListItem>list_item_2</ListItem>
+      <Stack spacing={2}>
+        {dueHabits.map((habit) => (
+          <ListItem key={habit.id}>{habit.name}</ListItem>
+        ))}
+        {dueHabits.length === 0 && <ListItem>keine anstehenden Habits :)</ListItem>}
       </Stack>
     </div>
   );
