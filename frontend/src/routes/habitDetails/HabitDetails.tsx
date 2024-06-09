@@ -28,8 +28,8 @@ export default function HabitDetails() {
   return (
     <Card sx={{ width: "100%" }}>
       <CardContent>
-        <Typography variant="h5">{habit.name}</Typography>
-        <Typography variant="body2">{habit.description}</Typography>
+        <Typography variant="h3">{habit.name}</Typography>
+        <Typography variant="h5">{habit.description}</Typography>
         <Entries entries={habit.entries} />
       </CardContent>
     </Card>
