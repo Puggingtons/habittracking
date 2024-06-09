@@ -35,6 +35,15 @@ export class HabitsService {
     return this.prismaService.habit.findMany({ where: { userId: userId } });
   }
 
+  async getHabitOfUser(habitId: number, userId: number) {
+    await this.ensureUserHasHabit(userId, habitId);
+
+    return this.prismaService.habit.findFirst({
+      where: { id: habitId },
+      include: { entries: { orderBy: { timestamp: 'desc' } } },
+    });
+  }
+
   async createHabitOfUser(habitDto: CreateHabitDto, userId: number) {
     return this.prismaService.habit.create({
       data: {
@@ -81,6 +90,26 @@ export class HabitsService {
     });
   }
 
+  /**
+   * returns all habits where the last entry is further in the past than the interval
+   * */
+  async getDueHabitsOfUser(userId: number) {
+    const habits = await this.prismaService.habit.findMany({
+      where: {
+        userId: userId,
+      },
+      include: { entries: { orderBy: { timestamp: 'desc' }, take: 1 } },
+    });
+
+    return habits.filter((habit) => {
+      if (habit.entries.length === 0) return true;
+
+      return (
+        new Date(habit.entries[0].timestamp) < nowMinusInterval(habit.interval)
+      );
+    });
+  }
+
   private async ensureUserHasHabit(userId: number, habitId: number) {
     const userHasHabit = await this.checkUserHasHabit(userId, habitId);
     if (!userHasHabit) {
@@ -101,3 +130,11 @@ export class HabitsService {
     );
   }
 }
+
+const MILLISECONDS_IN_A_DAY = 1000 * 60 * 60 * 24;
+
+const nowMinusInterval = (interval: number) => {
+  const nowMillis = Date.now();
+  const intervalMillis = Math.floor(MILLISECONDS_IN_A_DAY * interval);
+  return new Date(nowMillis - intervalMillis);
+};

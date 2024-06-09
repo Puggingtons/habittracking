@@ -26,6 +26,20 @@ export class HabitsController {
     return this.habitsService.getHabitsOfUser(req.user.id);
   }
 
+  @Get('/due')
+  @UseGuards(AuthGuard)
+  getDueHabits(@Request() req) {
+    return this.habitsService.getDueHabitsOfUser(req.user.id);
+  }
+
+  @Get('/:id')
+  @UseGuards(AuthGuard)
+  getHabit(@Param('id') id: string, @Request() req) {
+    const parsedId = this.parseId(id);
+
+    return this.habitsService.getHabitOfUser(parsedId, req.user.id);
+  }
+
   @Post()
   @UseGuards(AuthGuard)
   postHabit(@Body() createHabitDto: CreateHabitDto, @Request() req) {

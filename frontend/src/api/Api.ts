@@ -19,7 +19,6 @@ export default class Api {
     const access_token = AccessTokenHandler.getAccessToken();
 
     if (access_token) {
-      console.log(access_token);
       return { Authorization: `Bearer ${access_token}` };
     }
   }
@@ -126,5 +125,13 @@ export default class Api {
     return await this.getInstance().post(`habits/${habitId}/entry`, {
       timestamp,
     });
+  }
+
+  public static async getHabit(habitId: number) {
+    return await this.getInstance().get(`habits/${habitId}`);
+  }
+
+  public static async getDueHabits() {
+    return await this.getInstance().get("habits/due");
   }
 }
