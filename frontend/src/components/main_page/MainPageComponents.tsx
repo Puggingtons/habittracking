@@ -36,61 +36,13 @@ export function HabitDataNavigationBarContainer() {
         justifyContent: "space-between",
       }}
     >
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{
-          width: "75%",
-          backgroundColor: "#181818",
-          borderRadius: "25px",
-          marginLeft: "2%",
-          marginRight: "2%",
-          paddingLeft: "2%",
-          paddingRight: "1%",
-          fontWeight: "bold",
-        }}
-      >
-        <ListItem
-          className={`navigation-bar-button-style-properties ${
-            currentHabitOverviewRange === "all"
-              ? "navigation-bar-button-focus-style"
-              : null
-          }`}
-          onClick={() => setCurrentHabitOverviewRange("all")}
-        >
-          Alle
-        </ListItem>
-        <ListItem
-          className={`navigation-bar-button-style-properties ${
-            currentHabitOverviewRange === "year"
-              ? "navigation-bar-button-focus-style"
-              : null
-          }`}
-          onClick={() => setCurrentHabitOverviewRange("year")}
-        >
-          Jahr
-        </ListItem>
-        <ListItem
-          className={`navigation-bar-button-style-properties ${
-            currentHabitOverviewRange === "month"
-              ? "navigation-bar-button-focus-style"
-              : null
-          }`}
-          onClick={() => setCurrentHabitOverviewRange("month")}
-        >
-          Monat
-        </ListItem>
-        <ListItem
-          className={`navigation-bar-button-style-properties ${
-            currentHabitOverviewRange === "week"
-              ? "navigation-bar-button-focus-style"
-              : null
-          }`}
-          onClick={() => setCurrentHabitOverviewRange("week")}
-        >
-          Woche
-        </ListItem>
-      </Stack>
+      {/* disable habit ranges for now */}
+      {false && (
+        <HabitRanges
+          range={currentHabitOverviewRange}
+          setRange={(s: string) => setCurrentHabitOverviewRange(s)}
+        />
+      )}
       <Button
         variant="contained"
         startIcon={<AddIcon />}
@@ -109,6 +61,61 @@ export function HabitDataNavigationBarContainer() {
         )
       }
     </FlexBox>
+  );
+}
+
+function HabitRanges(
+  props: Readonly<{ range: string; setRange: (s: string) => void }>
+) {
+  const { range, setRange } = props;
+  return (
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{
+        width: "75%",
+        backgroundColor: "#181818",
+        borderRadius: "25px",
+        marginLeft: "2%",
+        marginRight: "2%",
+        paddingLeft: "2%",
+        paddingRight: "1%",
+        fontWeight: "bold",
+      }}
+    >
+      <ListItem
+        className={`navigation-bar-button-style-properties ${
+          range === "all" ? "navigation-bar-button-focus-style" : null
+        }`}
+        onClick={() => setRange("all")}
+      >
+        Alle
+      </ListItem>
+      <ListItem
+        className={`navigation-bar-button-style-properties ${
+          range === "year" ? "navigation-bar-button-focus-style" : null
+        }`}
+        onClick={() => setRange("year")}
+      >
+        Jahr
+      </ListItem>
+      <ListItem
+        className={`navigation-bar-button-style-properties ${
+          range === "month" ? "navigation-bar-button-focus-style" : null
+        }`}
+        onClick={() => setRange("month")}
+      >
+        Monat
+      </ListItem>
+      <ListItem
+        className={`navigation-bar-button-style-properties ${
+          range === "week" ? "navigation-bar-button-focus-style" : null
+        }`}
+        onClick={() => setRange("week")}
+      >
+        Woche
+      </ListItem>
+    </Stack>
   );
 }
 
