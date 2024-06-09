@@ -20,7 +20,7 @@ export default function DeleteHabitDialog(
 
   return (
     <Dialog open={props.open} onClose={onClose}>
-      <DialogTitle>Confirm Deletion</DialogTitle>
+      <DialogTitle>Confirm Deletion of '{props.habit.name}'</DialogTitle>
       <DialogActions>
         <Button onClick={onClose}>Abort</Button>
         <Button variant={"contained"} color={"error"} onClick={onDelete}>

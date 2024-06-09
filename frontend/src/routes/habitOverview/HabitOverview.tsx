@@ -1,4 +1,4 @@
-import { Button, Paper } from "@mui/material";
+import { IconButton, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import AddHabitEntryButton from "../../components/AddHabitEntryButton";
@@ -9,7 +9,7 @@ import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import FlexBox from "../../components/FlexBox";
 import GridView from "../../components/grid_view/GridView";
 import { Habit } from "../../api/types/Habit";
-import { useNavigate } from "react-router";
+import OpenHabitDetailsButton from "../../components/OpenHabitDetailsButton";
 
 export default function HabitOverview() {
   const [habits, setHabits] = useState<Habit[]>();
@@ -78,15 +78,21 @@ export const SingleHabit: React.FC<HabitComponentProps> = (
   return (
     <Paper elevation={5} sx={{ margin: ".5rem", padding: "4%", width: "95%" }}>
       <FlexBox style={{ userSelect: "none", justifyContent: "space-between" }}>
-        <FlexBox>
+        <IconButton disableFocusRipple disableRipple disableTouchRipple>
           <FeaturedPlayListIcon />
-          <h2 style={{ marginTop: "0%", marginLeft: "4%" }}>
+        </IconButton>
+        <div style={{ flexGrow: 1 }}>
+          <Typography
+            variant="h4"
+            style={{ marginTop: "0%", marginLeft: "4%" }}
+          >
             {props.habit.name}
-          </h2>
-        </FlexBox>
+          </Typography>
+        </div>
         <div>
           <DeleteHabit habit={props.habit} />
           <EditHabit habit={props.habit} />
+          <OpenHabitDetailsButton habit={props.habit} />
           <AddHabitEntryButton habit={props.habit} />
         </div>
       </FlexBox>
@@ -97,7 +103,8 @@ export const SingleHabit: React.FC<HabitComponentProps> = (
         Habit Interval:{" "}
         <span style={{ color: "#509CF5", fontWeight: "bold" }}>
           {props.habit.interval}
-        </span>
+        </span>{" "}
+        Tag{props.habit.interval !== 1 ? "e" : ""}
       </span>
     </Paper>
   );

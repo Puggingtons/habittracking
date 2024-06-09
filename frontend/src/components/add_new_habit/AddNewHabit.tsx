@@ -100,7 +100,7 @@ const NewHabitModal: React.FC<NewHabitModalProps> = (
           <br />
           <TextField
             variant="outlined"
-            label="Habit Intervall"
+            label="Habit Interval"
             className="text-input-fields-style-properties"
             style={{ width: "95%" }}
             onChange={onNewHabitIntervalChange}
