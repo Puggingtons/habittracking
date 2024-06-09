@@ -1,9 +1,16 @@
 import "./MainPageComponents.css";
 
 //import css rules
-import { Button, IconButton, ListItem, Stack } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  ListItem,
+  ListItemText,
+  Stack,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 
+import AddHabitEntryButton from "../AddHabitEntryButton";
 import AddIcon from "@mui/icons-material/Add";
 import Api from "../../api/Api";
 //import created components
@@ -150,9 +157,16 @@ export function NextHabitsContainer() {
       <h3>Anstehende Habits:</h3>
       <Stack spacing={2}>
         {dueHabits.map((habit) => (
-          <ListItem key={habit.id}>{habit.name}</ListItem>
+          <ListItem key={habit.id}>
+            <FlexBox style={{ alignContent: "space-between", width: "100%" }}>
+              <ListItemText>{habit.name}</ListItemText>
+              <AddHabitEntryButton habit={habit} />
+            </FlexBox>
+          </ListItem>
         ))}
-        {dueHabits.length === 0 && <ListItem>keine anstehenden Habits :)</ListItem>}
+        {dueHabits.length === 0 && (
+          <ListItem>keine anstehenden Habits :)</ListItem>
+        )}
       </Stack>
     </div>
   );
