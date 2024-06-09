@@ -24,6 +24,7 @@ export default function DeleteHabit(props: Readonly<{ habit: Habit }>) {
   return (
     <>
       <IconButton
+        color="error"
         onClick={() => {
           onClick();
         }}
