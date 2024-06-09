@@ -7,6 +7,7 @@ import {
 
 import AccessTokenHandler from "../api/AccessTokenHandler";
 import App from "../App";
+import HabitDetails from "../routes/habitDetails/HabitDetails";
 import HabitOverview from "../routes/habitOverview/HabitOverview";
 import Login from "../routes/login/Login";
 import MainPage from "../routes/mainPage/MainPage";
@@ -14,7 +15,7 @@ import Registration from "../routes/registration/Registration";
 
 const checkLogin = async () => {
   const loggedIn = await AccessTokenHandler.isLoggedIn();
-  
+
   if (!loggedIn) {
     return redirect("/login");
   }
@@ -32,6 +33,7 @@ export const router = createBrowserRouter(
 
       <Route element={<MainPage />} loader={checkLogin}>
         <Route path="habits" element={<HabitOverview />} loader={checkLogin} />
+        <Route path="habit/:id" element={<HabitDetails />} loader={checkLogin} />
       </Route>
     </Route>
   )

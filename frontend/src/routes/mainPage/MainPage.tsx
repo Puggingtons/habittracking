@@ -7,11 +7,12 @@ import {
   HabitDataNavigationBarContainer,
   NextHabitsContainer,
 } from "../../components/main_page/MainPageComponents";
+import { useEffect, useState } from "react";
 
+import Api from "../../api/Api";
 //import created components
 import FlexBox from "../../components/FlexBox";
-import { IconButton } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MenuButton from "../../components/MenuButton";
 import { Outlet } from "react-router";
 
 export default function MainPage() {
@@ -25,12 +26,20 @@ export default function MainPage() {
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString("en-US", options);
 
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    Api.getUser().then(async (res) => {
+      setUsername((await res.json()).username);
+    });
+  }, []);
+
   return (
     <div className="mainPageContainer">
       <FlexBox>
         <div id="leftSideMainContainer" className="leftSideContainer ">
           <h1 id="welcomeBackHeader" className="">
-            Willkommen zurück, Jonas
+            Willkommen zurück, {username}
           </h1>
           <HabitDataNavigationBarContainer />
           <hr id="dividerLine" />
@@ -40,9 +49,7 @@ export default function MainPage() {
         <div id="rightSideContainer" className="rightSideContainer">
           <FlexBox style={{ justifyContent: "space-between" }}>
             <h3>{formattedDate}</h3>
-            <IconButton>
-              <MoreVertIcon style={{ color: "white" }} />
-            </IconButton>
+            <MenuButton />
           </FlexBox>
           <NextHabitsContainer />
         </div>

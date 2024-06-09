@@ -1,7 +1,7 @@
 import AccessTokenHandler from "./AccessTokenHandler";
 
 export default class Api {
-  public static instance: Api;
+  private static instance: Api;
 
   public static readonly API_PATH = "http://localhost:3001/";
 
@@ -19,7 +19,6 @@ export default class Api {
     const access_token = AccessTokenHandler.getAccessToken();
 
     if (access_token) {
-      console.log(access_token);
       return { Authorization: `Bearer ${access_token}` };
     }
   }
@@ -37,6 +36,21 @@ export default class Api {
     return await fetch(Api.API_PATH + endpoint, {
       method: "POST",
       body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json", ...Api.authHeader() },
+    });
+  }
+
+  private async put(endpoint: string, data: Object) {
+    return await fetch(Api.API_PATH + endpoint, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json", ...Api.authHeader() },
+    });
+  }
+
+  private async delete(endpoint: string) {
+    return await fetch(Api.API_PATH + endpoint, {
+      method: "DELETE",
       headers: { "Content-Type": "application/json", ...Api.authHeader() },
     });
   }
@@ -86,5 +100,42 @@ export default class Api {
 
   public static async getHabits() {
     return await this.getInstance().get("habits");
+  }
+
+  public static async deleteHabit(id: number) {
+    return await this.getInstance().delete(`habits/${id}`);
+  }
+
+  public static async postHabit(habit: {
+    name: string;
+    interval: number;
+    description: string;
+  }) {
+    return await this.getInstance().post("habits", habit);
+  }
+
+  public static async putHabit(
+    id: number,
+    habit: { name?: string; interval?: number; description?: string }
+  ) {
+    return await this.getInstance().put(`habits/${id}`, habit);
+  }
+
+  public static async postHabitEntry(habitId: number, timestamp?: Date) {
+    return await this.getInstance().post(`habits/${habitId}/entry`, {
+      timestamp,
+    });
+  }
+
+  public static async getHabit(habitId: number) {
+    return await this.getInstance().get(`habits/${habitId}`);
+  }
+
+  public static async getDueHabits() {
+    return await this.getInstance().get("habits/due");
+  }
+
+  public static async getUser() {
+    return await this.getInstance().get('auth/profile');
   }
 }
