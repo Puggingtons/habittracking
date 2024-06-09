@@ -134,4 +134,8 @@ export default class Api {
   public static async getDueHabits() {
     return await this.getInstance().get("habits/due");
   }
+
+  public static async getUser() {
+    return await this.getInstance().get('auth/profile');
+  }
 }
